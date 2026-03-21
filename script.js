@@ -18,8 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     tasks.push(newTask);
     saveTasks();
+    renderTask(newTask);
     todoinput.value = ""; //Clears the input
-    console.log(task);
+    console.log(newTask);
   });
 
   function renderTask(task) {
@@ -30,6 +31,20 @@ document.addEventListener("DOMContentLoaded", () => {
     <span>${task.text}</span>
     <button>delete</button>
     `;
+
+    li.addEventListener("click", (e) => {
+      if (e.target.tagName === "BUTTON") return;
+      task.completed = !task.completed;
+      li.classList.toggle("completed");
+      saveTasks();
+    });
+
+    li.querySelector("button").addEventListener("click", (e) => {
+      e.stopPropagation(); //prevent toggle from firing
+      tasks = tasks.filter((t) => t.id !== task.id);
+      li.remove();
+      saveTasks();
+    });
 
     todoList.appendChild(li);
   }
