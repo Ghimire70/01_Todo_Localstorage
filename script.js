@@ -22,6 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
     todoinput.value = ""; //Clears the input
     console.log(newTask);
   });
+  todoinput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      addTaskButton.click();
+    }
+  });
 
   function renderTask(task) {
     const li = document.createElement("li");
@@ -29,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (task.completed) li.classList.add("completed");
     li.innerHTML = `
     <span>${task.text}</span>
-    <button>delete</button>
+    <button class ="delete-btn">delete</button>
     `;
 
     li.addEventListener("click", (e) => {
